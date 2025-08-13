@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Client Health App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Client Health App</h1>
+      <section id="controls">
+        <button id="reload">Reload</button>
+      </section>
+      <table id="clients-table">
+        <thead>
+          <tr>
+            <th>Client Name</th><th>Date of Birth</th><th>Main Language</th><th>Secondary Language</th><th>Funding</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h2>Add / Edit Client</h2>
+      <form id="client-form">
+        <input type="hidden" id="client-id" />
+        <label>Client Name <input id="client_name" required /></label>
+        <label>Date of Birth <input id="date_of_birth" type="date" required /></label>
+        <label>Main language <input id="main_language" required /></label>
+        <label>Secondary language <input id="secondary_language" /></label>
+        <label>Funding
+          <select id="funding_source_id"></select>
+        </label>
+        <button type="submit">Save</button>
+        <button type="button" id="cancel">Cancel</button>
+      </form>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
