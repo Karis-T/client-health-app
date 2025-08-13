@@ -1,5 +1,6 @@
 const { all } = require('../db');
 
+// SELECT all funding source rows
 async function getAllFunding() {
     const sql = `
         SELECT * 

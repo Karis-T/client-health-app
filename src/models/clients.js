@@ -1,6 +1,6 @@
 const { all, get, run } = require('../db');
 
-// Retrieve all clients with funding source
+// SELECT all client rows with funding source
 async function getAllClients() {
    const sql = `
     SELECT c.id, c.client_name, c.date_of_birth,
@@ -14,7 +14,7 @@ async function getAllClients() {
     return all(sql);
 }
 
-// Retrieve one client with funding source
+// SELECT a client row with funding source
 async function getClientById(id) {
     const sql = `
     SELECT c.id, c.client_name, c.date_of_birth,
@@ -28,7 +28,7 @@ async function getClientById(id) {
     return get(sql, [id]);
 }
 
-// Create one client row
+// INSERT new client row
 async function createClient(newClient) {
     const {
         client_name, date_of_birth, main_language,
@@ -44,7 +44,7 @@ async function createClient(newClient) {
     return getClientById(resolve.lastID);
 }
 
-// Update one client row
+// UPDATE client row
 async function updateClient(id, patch) {
     const [fields, params] = [[], []];
     
@@ -60,7 +60,7 @@ async function updateClient(id, patch) {
     return getClientById(id);
 }
 
-// Delete one client row
+// DELETE client row
 async function deleteClient(id) {
     const resolve = await run(`DELETE FROM clients WHERE id = ?`, [id]);
     return { affected: resolve.changes };

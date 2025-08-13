@@ -1,12 +1,10 @@
-PRAGMA foreign_keys = ON;
-
 CREATE TABLE IF NOT EXISTS funding_sources (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY,
     code TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS clients (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY,
     client_name TEXT NOT NULL,
     date_of_birth TEXT NOT NULL,
     main_language TEXT NOT NULL,
