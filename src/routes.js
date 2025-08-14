@@ -1,13 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {
-    getAllClients,
-    getClientById,
-    createClient,
-    updateClient,
-    deleteClient,
-    getAllFunding
-} = require('./models');
+const { getAllClients, getClientById, createClient, updateClient, deleteClient, getAllFunding } = require('./models');
 
 // GET select all clients
 router.get('/clients', async (_, response) => {
@@ -62,7 +55,7 @@ router.delete('/clients/:id', async (request, response) => {
 });
 
 
-// GET All funding sources
+// GET select all funding sources
 router.get('/funding-sources', async (_, response) => {
     try { 
         response.json(await getAllFunding()); 

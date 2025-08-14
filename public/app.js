@@ -1,30 +1,47 @@
-const API = '';
-
 // helper JSON function
 async function toJson(response) {
-  if (!response.ok) throw new Error(await res.text().catch(()=>'HTTP '+response.status));
+  if (!response.ok) throw new Error(await response.text().catch(()=>'HTTP '+response.status));
   const length = response.headers.get('content-length');
   if (response.status === 204 || length === '0' || length === null) return null;
   return response.json();
 }
 
+// helper modal functions
+
+// --- modal helpers ---
+function openModal(mode = 'create') {
+  const overlay = document.getElementById('modal-overlay');
+  const title = document.getElementById('modal-title');
+  title.textContent = mode === 'edit' ? 'Edit a Client' : 'Add a Client';
+  overlay.style.display = 'block';
+  overlay.setAttribute('aria-hidden', 'false');
+  // Focus first field for accessibility
+  elements.clientName.focus();
+}
+
+function closeModal() {
+  const overlay = document.getElementById('modal-overlay');
+  overlay.style.display = 'none';
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
 async function getFunding() {
-  const response = await fetch(`${API}/funding-sources`);
+  const response = await fetch(`/funding-sources`);
   return response.json();
 }
 
 async function getClients() {
-  const response = await fetch(`${API}/clients`);
+  const response = await fetch(`/clients`);
   return response.json();
 }
 
 async function getClient(id) {
-  const response = await fetch(`${API}/clients/${id}`);
+  const response = await fetch(`/clients/${id}`);
   return response.json();
 }
 
 async function createClient(payload) {
-  const response = await fetch(`${API}/clients`, {
+  const response = await fetch(`/clients`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
@@ -32,7 +49,7 @@ async function createClient(payload) {
 }
 
 async function updateClient(id, payload) {
-  const response = await fetch(`${API}/clients/${id}`, {
+  const response = await fetch(`/clients/${id}`, {
     method: 'PUT', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
@@ -40,12 +57,12 @@ async function updateClient(id, payload) {
 }
 
 async function deleteClient(id) {
-  await fetch(`${API}/clients/${id}`, { method: 'DELETE' });
+  await fetch(`/clients/${id}`, { method: 'DELETE' });
 }
 
 // collect form field data into elements object
-const properties = 'reload form cancel id clientName dateOfBirth mainLang secondLang funding'.split(' ');
-const ids = 'reload client-form cancel client-id client_name date_of_birth main_language secondary_language funding_source_id'.split(' ');
+const properties = 'newClient form cancel id clientName dateOfBirth mainLang secondLang funding'.split(' ');
+const ids = 'new-client client-form cancel-modal client-id client_name date_of_birth main_language secondary_language funding_source_id'.split(' ');
 
 const elements = properties.reduce((object, property, index) => {
   object[property] = document.getElementById(ids[index]);
@@ -53,6 +70,14 @@ const elements = properties.reduce((object, property, index) => {
 }, {});
 
 elements.tableBody = document.querySelector('#clients-table tbody');
+
+
+// Open modal with new client button
+elements.newClient.addEventListener('click', () => {
+  resetForm();
+  openModal('create');
+});
+
 
 // populate funding dropdown in client form
 async function loadFunding() {
@@ -110,7 +135,7 @@ elements.tableBody.addEventListener('click', async (event) => {
     elements.mainLang.value = item.main_language;
     elements.secondLang.value = item.secondary_language ?? '';
     elements.funding.value = item.funding_source_id;
-    window.scrollTo(0, document.body.scrollHeight);
+    openModal('edit')
   }
   if (button.dataset.del) {
     if (confirm('Delete this client?')) {
@@ -131,13 +156,14 @@ elements.form.addEventListener('submit', async (event) => {
   }
   await loadClients();
   resetForm();
+  closeModal();
 });
 
 // click on cancel button
-elements.cancel.addEventListener('click', resetForm);
-
-// click on reload button
-elements.reload.addEventListener('click', loadClients);
+elements.cancel.addEventListener('click', () => {
+  resetForm();
+  closeModal();
+});
 
 // render list and dropdown data on app startup
 (async function init() {

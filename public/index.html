@@ -8,10 +8,11 @@
   </head>
   <body>
     <main>
-      <h1>Client Health App</h1>
-      <section id="controls">
-        <button id="reload">Reload</button>
-      </section>
+       <header>
+        <h1>Client Health Management App</h1>
+        <button id="new-client">New Client</button>
+      </header>
+
       <table id="clients-table">
         <thead>
           <tr>
@@ -21,19 +22,53 @@
         <tbody></tbody>
       </table>
 
-      <h2>Add / Edit Client</h2>
-      <form id="client-form">
-        <input type="hidden" id="client-id" />
-        <label>Client Name <input id="client_name" required /></label>
-        <label>Date of Birth <input id="date_of_birth" type="date" required /></label>
-        <label>Main language <input id="main_language" required /></label>
-        <label>Secondary language <input id="secondary_language" /></label>
-        <label>Funding
-          <select id="funding_source_id"></select>
-        </label>
-        <button type="submit">Save</button>
-        <button type="button" id="cancel">Cancel</button>
-      </form>
+          <!-- Modal (hidden by default; will show with JS/CSS) -->
+      <div id="modal-overlay" aria-hidden="true" role="presentation" style="display:none;">
+        <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <h2 id="modal-title">Add / Edit a Client</h2>
+
+          <form id="client-form">
+            <input type="hidden" id="client-id" />
+
+            <!-- Step 1 -->
+            <h3>1. Enter Clients Name</h3>
+            <div class="form-row">
+              <label for="client_name">Clients name</label>
+              <input id="client_name" name="client_name" placeholder="e.g. Jane Smith" required />
+            </div>
+
+            <!-- Step 2 -->
+            <h3>2. Enter their details</h3>
+            <div class="form-grid-3">
+              <div>
+                <label for="date_of_birth">Date of birth</label>
+                <input id="date_of_birth" name="date_of_birth" type="date" placeholder="YYYY-MM-DD" required />
+              </div>
+              <div>
+                <label for="main_language">Main language</label>
+                <input id="main_language" name="main_language" placeholder="e.g. English" required />
+              </div>
+              <div>
+                <label for="secondary_language">Secondary language (optional)</label>
+                <input id="secondary_language" name="secondary_language" placeholder="Optional" />
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <h3>3. Select Funding Source</h3>
+            <div class="form-row">
+              <label for="funding_source_id">Funding source</label>
+              <select id="funding_source_id" name="funding_source_id" required>
+              </select>
+            </div>
+
+            <div class="modal-actions">
+              <button type="submit" id="save-client">Save</button>
+              <button type="button" id="cancel-modal">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </main>
     <script src="/app.js"></script>
   </body>
