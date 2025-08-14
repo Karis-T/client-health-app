@@ -6,10 +6,11 @@ const {
     createClient,
     updateClient,
     deleteClient,
-} = require('../models/clients');
+    getAllFunding
+} = require('./models');
 
 // GET select all clients
-router.get('/', async (_, response) => {
+router.get('/clients', async (_, response) => {
     try {
         response.json(await getAllClients());
     } catch {
@@ -18,7 +19,7 @@ router.get('/', async (_, response) => {
 });
 
 // GET select a client by id
-router.get('/:id', async (request, response) => {
+router.get('/clients/:id', async (request, response) => {
     const id = Number(request.params.id);
     try {
         const row = await getClientById(id);
@@ -30,7 +31,7 @@ router.get('/:id', async (request, response) => {
 });
 
 // POST create a new client
-router.post('/', async (request, response) => {
+router.post('/clients', async (request, response) => {
     try {
         response.status(201).json(await createClient(request.body));
     } catch {
@@ -39,7 +40,7 @@ router.post('/', async (request, response) => {
 });
 
 // PUT update a client
-router.put('/:id', async (request, response) => {
+router.put('/clients/:id', async (request, response) => {
     const id = Number(request.params.id);
     try {
         response.json(await updateClient(id, request.body));
@@ -49,7 +50,7 @@ router.put('/:id', async (request, response) => {
 });
 
 // DELETE delete a client
-router.delete('/:id', async (request, response) => {
+router.delete('/clients/:id', async (request, response) => {
   const id = Number(request.params.id);
   try {
     const result = await deleteClient(id);
@@ -58,6 +59,16 @@ router.delete('/:id', async (request, response) => {
   } catch { 
     response.status(500).json({ error: 'Failed to delete client' }); 
   }
+});
+
+
+// GET All funding sources
+router.get('/funding-sources', async (_, response) => {
+    try { 
+        response.json(await getAllFunding()); 
+    } catch { 
+        response.status(500).json({ error: 'Failed to load funding sources'}); 
+    }
 });
 
 module.exports = router;

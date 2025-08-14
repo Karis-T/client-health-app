@@ -1,6 +1,6 @@
 const API = '';
 
-// helper function
+// helper JSON function
 async function toJson(response) {
   if (!response.ok) throw new Error(await res.text().catch(()=>'HTTP '+response.status));
   const length = response.headers.get('content-length');
@@ -43,19 +43,16 @@ async function deleteClient(id) {
   await fetch(`${API}/clients/${id}`, { method: 'DELETE' });
 }
 
-// collect form field data
-const elements = {
-  tableBody: document.querySelector('#clients-table tbody'),
-  reload: document.getElementById('reload'),
-  form: document.getElementById('client-form'),
-  cancel: document.getElementById('cancel'),
-  id: document.getElementById('client-id'),
-  clientName: document.getElementById('client_name'),
-  dateOfBirth: document.getElementById('date_of_birth'),
-  mainLang: document.getElementById('main_language'),
-  secondLang: document.getElementById('secondary_language'),
-  funding: document.getElementById('funding_source_id')
-};
+// collect form field data into elements object
+const properties = 'reload form cancel id clientName dateOfBirth mainLang secondLang funding'.split(' ');
+const ids = 'reload client-form cancel client-id client_name date_of_birth main_language secondary_language funding_source_id'.split(' ');
+
+const elements = properties.reduce((object, property, index) => {
+  object[property] = document.getElementById(ids[index]);
+  return object;
+}, {});
+
+elements.tableBody = document.querySelector('#clients-table tbody');
 
 // populate funding dropdown in client form
 async function loadFunding() {

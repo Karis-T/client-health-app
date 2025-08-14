@@ -1,4 +1,4 @@
-const { all, get, run } = require('../db');
+const { all, get, run } = require('./db');
 
 // SELECT all client rows with funding source
 async function getAllClients() {
@@ -30,10 +30,7 @@ async function getClientById(id) {
 
 // INSERT new client row
 async function createClient(newClient) {
-    const {
-        client_name, date_of_birth, main_language,
-        secondary_language, funding_source_id 
-    } = newClient;
+    const { client_name, date_of_birth, main_language, secondary_language, funding_source_id } = newClient;
     
     const sql = `
         INSERT INTO clients (client_name, date_of_birth, main_language, secondary_language, funding_source_id)
@@ -66,10 +63,22 @@ async function deleteClient(id) {
     return { affected: resolve.changes };
 }
 
+// SELECT all funding source rows
+async function getAllFunding() {
+    const sql = `
+        SELECT id, code 
+        FROM funding_sources 
+        ORDER BY id
+    `;
+    
+  return all(sql);
+}
+
 module.exports = {
     getAllClients,
     getClientById,
     createClient,
     updateClient,
-    deleteClient
+    deleteClient,
+    getAllFunding
 };
