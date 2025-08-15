@@ -6,14 +6,14 @@
 
 /* -------- Theme tokens -------- */
 :root{
-  --brand:#024d3f;        /* headings, primary button, header bg */
-  --ink:#112A43;          /* body text */
-  --muted:#839AB1;        /* borders, placeholder */
-  --ink-weak:#2b3e55;     /* slightly lighter than ink for secondary text */
-  --bg:#ffffff;           /* surfaces */
-  --btn-muted:#F0F4F8;    /* cancel btn bg */
-  --btn-accent:#C6F7E2;   /* "New client" btn bg */
-  --table-border:#839AB1; /* row divider */
+  --brand:#024d3f;
+  --ink:#112A43;
+  --muted:#839AB1;
+  --ink-weak:#2b3e55;
+  --bg:#ffffff;
+  --btn-muted:#F0F4F8;
+  --btn-accent:#C6F7E2;
+  --table-border:#839AB1;
   --radius:4px;
 }
 
@@ -98,10 +98,6 @@ h3{ font-size:18px; font-weight:500; color:var(--brand); margin: 24px 0 8px; }
   vertical-align: middle;
 }
 #clients-table td button:last-child{ margin-right: 0; }
-
-@media (max-width: 720px){
-  #clients-table { display:block; overflow-x:auto; white-space: nowrap; }
-}
 
 
 
@@ -209,11 +205,8 @@ select{
 
 .form-grid-3{
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr; /* three inline inputs on step 2 */
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
-}
-@media (max-width: 840px){
-  .form-grid-3{ grid-template-columns: 1fr; }
 }
 
 

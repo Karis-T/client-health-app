@@ -4,14 +4,12 @@ function openModal(mode = 'create') {
   const title = document.getElementById('modal-title');
   title.textContent = mode === 'edit' ? 'Edit a Client' : 'Add a Client';
   overlay.style.display = 'flex';
-  overlay.setAttribute('aria-hidden', 'false');
   elements.clientName.focus();
 }
 
 function closeModal() {
   const overlay = document.getElementById('modal-overlay');
   overlay.style.display = 'none';
-  overlay.setAttribute('aria-hidden', 'true');
 }
 
 // fetch api functions
