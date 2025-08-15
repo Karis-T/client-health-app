@@ -1,21 +1,10 @@
-// helper JSON function
-async function toJson(response) {
-  if (!response.ok) throw new Error(await response.text().catch(()=>'HTTP '+response.status));
-  const length = response.headers.get('content-length');
-  if (response.status === 204 || length === '0' || length === null) return null;
-  return response.json();
-}
-
 // helper modal functions
-
-// --- modal helpers ---
 function openModal(mode = 'create') {
   const overlay = document.getElementById('modal-overlay');
   const title = document.getElementById('modal-title');
   title.textContent = mode === 'edit' ? 'Edit a Client' : 'Add a Client';
-  overlay.style.display = 'block';
+  overlay.style.display = 'flex';
   overlay.setAttribute('aria-hidden', 'false');
-  // Focus first field for accessibility
   elements.clientName.focus();
 }
 
@@ -25,6 +14,7 @@ function closeModal() {
   overlay.setAttribute('aria-hidden', 'true');
 }
 
+// fetch api functions
 async function getFunding() {
   const response = await fetch(`/funding-sources`);
   return response.json();
@@ -45,7 +35,7 @@ async function createClient(payload) {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
-  return toJson(response);
+  return response.json();
 }
 
 async function updateClient(id, payload) {
@@ -53,7 +43,7 @@ async function updateClient(id, payload) {
     method: 'PUT', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
-  return toJson(response);
+  return response.json();
 }
 
 async function deleteClient(id) {

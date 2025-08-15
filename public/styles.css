@@ -1,0 +1,250 @@
+/* -------- Fonts -------- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+
+
+
+/* -------- Theme tokens -------- */
+:root{
+  --brand:#024d3f;        /* headings, primary button, header bg */
+  --ink:#112A43;          /* body text */
+  --muted:#839AB1;        /* borders, placeholder */
+  --ink-weak:#2b3e55;     /* slightly lighter than ink for secondary text */
+  --bg:#ffffff;           /* surfaces */
+  --btn-muted:#F0F4F8;    /* cancel btn bg */
+  --btn-accent:#C6F7E2;   /* "New client" btn bg */
+  --table-border:#839AB1; /* row divider */
+  --radius:4px;
+}
+
+
+
+
+/* -------- Global -------- */
+*{ box-sizing:border-box; }
+html, body { height:100%; }
+body{
+  margin:0;
+  font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+}
+
+main{
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap:12px;
+  margin-bottom: 8px;
+}
+
+.toolbar{
+  margin: 8px 0 16px;
+}
+
+
+
+
+/* -------- Headings -------- */
+h1{ font-size:40px; font-weight:500; color:var(--brand); margin: 0 0 12px; }
+h2{ font-size:32px; font-weight:500; color:var(--brand); margin: 0 0 16px; }
+h3{ font-size:18px; font-weight:500; color:var(--brand); margin: 24px 0 8px; }
+
+
+
+
+/* -------- Table -------- */
+#clients-table{
+  width:100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: #fff;
+  margin: 0;
+}
+#clients-table thead th{
+  background: var(--brand);
+  color: #fff;              
+  font-size:18px;
+  font-weight:400;
+  text-align:left;
+  padding: 16px 18px;       
+}
+#clients-table tbody td{
+  font-size:16px;          
+  color: var(--ink);
+  padding: 12px 14px;      
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+#clients-table tbody tr + tr{
+  border-top: 1px solid var(--table-border);
+}
+
+#clients-table thead th:nth-child(6),
+#clients-table tbody td:nth-child(6){
+  width: 170px;         
+  white-space: nowrap;
+}
+
+#clients-table td button{
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+#clients-table td button:last-child{ margin-right: 0; }
+
+@media (max-width: 720px){
+  #clients-table { display:block; overflow-x:auto; white-space: nowrap; }
+}
+
+
+
+
+/* -------- Buttons (base) -------- */
+button{
+  font-size:16px;           
+  font-weight:500;        
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 8px 12px;     
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.02s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+button:disabled{ opacity:0.6; cursor:not-allowed; }
+button:active{ transform: translateY(1px); }
+button:focus-visible{
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Primary / Save */
+#save-client{
+  background: var(--brand);
+  color:#fff;
+}
+
+/* Secondary / Cancel */
+#cancel-modal{
+  background: var(--btn-muted);
+  color: var(--ink);
+}
+
+/* Accent / New Client */
+#new-client{
+  background: var(--btn-accent);
+  color: var(--brand);
+}
+
+/* Table action buttons (Edit/Delete) */
+#clients-table td button{
+  background:#fff;
+  color: var(--ink);
+  border: 1px solid #819BB1;
+  font-weight:400; /* Roboto Regular */
+  margin-right:8px;
+}
+
+
+
+
+/* -------- Forms -------- */
+label{
+  display:block;
+  font-size:16px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+input, select{
+  width:100%;
+  font: inherit;
+  color: var(--ink);
+  background:#fff;                                 
+  border: 1px solid var(--muted);                   
+  border-radius: var(--radius);
+  padding: 10px 12px;                           
+}
+input::placeholder{
+  color: var(--muted);                              
+  font-size:12px;
+  font-weight:400;
+}
+input:focus, select:focus{
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+input[type="date"]{
+  padding: 10px 12px;
+  height: auto;
+}
+
+input[type="date"]::-webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field{
+  padding: 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+  padding: 0 4px;
+}
+
+select{
+  padding: 10px 12px;
+  line-height: 1.2;
+}
+
+.form-row{ margin-bottom: 12px; }
+
+.form-grid-3{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr; /* three inline inputs on step 2 */
+  gap: 16px;
+}
+@media (max-width: 840px){
+  .form-grid-3{ grid-template-columns: 1fr; }
+}
+
+
+
+
+/* -------- Modal -------- */
+#modal-overlay{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17,42,67,0.20);
+  z-index: 1000;
+}
+
+/* Modal panel */
+#modal{
+  background: var(--bg);
+  width: min(640px, 92vw);
+  max-height: 92vh;
+  overflow:auto;
+  border-radius: 12px;
+  padding: 64px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+/* Modal actions (Save / Cancel) */
+.modal-actions{
+  display:flex;
+  gap:12px;
+  justify-content:flex-end;
+  margin-top: 24px;
+}

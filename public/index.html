@@ -10,13 +10,16 @@
     <main>
        <header>
         <h1>Client Health Management App</h1>
-        <button id="new-client">New Client</button>
       </header>
+
+      <div class="toolbar">
+        <button id="new-client">New Client</button>
+      </div>
 
       <table id="clients-table">
         <thead>
           <tr>
-            <th>Client Name</th><th>Date of Birth</th><th>Main Language</th><th>Secondary Language</th><th>Funding</th><th>Actions</th>
+            <th>Client Name</th><th>Date of Birth</th><th>Main Language</th><th>2nd Language</th><th>Funding</th><th>Actions</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -49,7 +52,7 @@
                 <input id="main_language" name="main_language" placeholder="e.g. English" required />
               </div>
               <div>
-                <label for="secondary_language">Secondary language (optional)</label>
+                <label for="secondary_language">2nd language</label>
                 <input id="secondary_language" name="secondary_language" placeholder="Optional" />
               </div>
             </div>
